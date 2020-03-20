@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Number guessing game</title>
+    <style>
+      html {
+        font-family: sans-serif;
+      }
+      body {
+        width: 50%;
+        max-width: 800px;
+        min-width: 480px;
+        margin: 0 auto;
+      }
+      .LR {
+        color: white;
+        padding: 3px;
+      }
+    </style>
+  </head>
+  <body>
+     
+<div class="form">
+  <label for="guesfld">Enter your guess: </label><input type="text" id="guesfld" class="guesfld">
+  <input type="submit" value="Submit guess" class="guessub">
+</div>
+<div class="resultParas">
+  <p class="guesses"></p>
+  <p class="LR"></p>
+  <p class="lowOrHi"></p>
+</div>
+</body>
+<script>
+  
+  var RN = Math.floor(Math.random() * 100) + 1;
+  var guesses = document.querySelector('.guesses');
+  var LR = document.querySelector('.LR');
+  var lowOrHi = document.querySelector('.lowOrHi');
+  var guessub = document.querySelector('.guessub');
+  var guesfld = document.querySelector('.guesfld');
+  var GC = 1;
+  var RB;
+  guesfld.focus();
+  function CG() {
+    var userGuess = Number(guesfld.value);
+    if(GC === 1) {
+      guesses.textContent = 'Previous guesses: ';
+    }
+    guesses.textContent += userGuess + ' ';
+    if(userGuess === RN) {
+      LR.textContent = 'Congratulations! You got it right!';
+      LR.style.backgroundColor = 'green';
+      lowOrHi.textContent = '';
+      SGO();
+    } else if(GC === 10) {
+      LR.textContent = '!!!GAME OVER!!!';
+      lowOrHi.textContent = '';
+      SGO();
+    } else {
+      LR.textContent = 'Wrong!';
+      LR.style.backgroundColor = 'red';
+      if(userGuess < RN) {
+        lowOrHi.textContent = 'Last guess was too low!';
+      } else if(userGuess > RN) {
+        lowOrHi.textContent = 'Last guess was too high!';
+      }
+    }
+    GC++;
+    guesfld.value = '';
+    guesfld.focus();
+  }
+  guessub.addEventListener('click', CG);
+  function SGO() {
+    guesfld.disabled = true;
+    guessub.disabled = true;
+    RB = document.createElement('button');
+    RB.textContent = 'Start new game';
+    document.body.appendChild(RB);
+    RB.addEventListener('click', resetGame);
+  }
+  function resetGame() {
+    GC = 1;
+    var resetHimanshu = document.querySelectorAll('.resultParas p');
+    for(var i = 0 ; i < resetHimanshu.length ; i++) {
+      resetHimanshu[i].textContent = '';
+    }
+    RB.parentNode.removeChild(RB);
+    guesfld.disabled = false;
+    guessub.disabled = false;
+    guesfld.value = '';
+    guesfld.focus();
+    LR.style.backgroundColor = 'white';
+    RN = Math.floor(Math.random() * 100) + 1;
+  }
+</script>
+</html>
