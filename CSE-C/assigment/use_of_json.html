@@ -1,0 +1,35 @@
+<html>
+    <head>
+
+    </head>
+    <body>
+        <script src="todos.js"></script>
+        <script type="text/javascript">
+            d=data[0];
+            task=[0,0,0,0,0,0,0,0,0,0];
+             for(var i=0;i<200;i++)
+                {
+                    if(data[i]["completed"]==true)
+                    {
+                        task[data[i]["userId"]-1]++;
+                        console.log(data[i]['id']+'-'+data[i]['completed'])
+                    }
+                }
+             for(var i=0;i<10;i++)
+             {
+                console.log(task[i]);
+             }
+             var max=task[0];
+             for(var i=1;i<10;i++)
+             {
+                if(task[i]>max)
+                {
+                    max=task[i];
+                    
+                }
+             }   
+             console.log(max);   
+            
+        </script>
+    </body>
+</html>
